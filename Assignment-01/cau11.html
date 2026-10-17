@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bố cục trang Web</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: white;
+        }
+
+        .site-wrapper {
+            width: 800px;
+            margin: 30px auto;
+            padding: 15px;
+            background-color: #E0E0E0;
+            border: 3px solid #99CC99;
+            box-shadow: inset 0 0 0 1px red;
+        }
+
+        .site-header {
+            display: flex;
+            align-items: center;
+            height: 120px;
+            border: 2px solid black;
+            background-color: white;
+        }
+
+        .site-header img {
+            width: 120px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        .site-header h1 {
+            font-size: 20px;
+            margin: 0;
+            color: black;
+        }
+
+        .site-nav {
+            width: 590px;
+            margin-top: 2px;
+        }
+
+        .site-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            width: 100%;
+        }
+
+        .site-nav li {
+            flex: 1;
+        }
+
+        .site-nav a {
+            display: block;
+    padding: 10px 0;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 14px; /* nhỏ hơn mặc định 16px */
+    background: linear-gradient(#1C8A1C, #222222 50%, #222222);
+    border-right: 1px solid #555555;
+}
+
+        .site-body {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .site-main {
+            width: 590px;
+            padding: 15px;
+            border: 1px solid blue;
+            box-sizing: border-box;
+        }
+
+        .site-main section {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid red;
+        }
+
+        .site-main section:last-child {
+            margin-bottom: 0;
+        }
+
+        .site-main h3 {
+            text-align: center;
+            margin: 0 0 5px;
+            font-size: 14px;
+        }
+
+        .site-main p {
+            margin: 3px 0;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .faculty {
+            text-align: right !important;
+        }
+
+        .site-aside {
+            width: 195px;
+            padding: 15px;
+            background-color: #7FCBCC;
+            border: 1px solid red;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .site-aside h3 {
+            font-size: 14px;
+            margin-top: 0;
+        }
+
+        .site-aside p {
+            font-size: 13px;
+        }
+
+        .site-footer {
+            margin-top: 15px;
+            padding: 15px;
+            text-align: center;
+            border-top: 2px solid green;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="site-wrapper">
+
+        <header class="site-header">
+            <img src="BTTH1_Hinh3/logo.jpg" alt="Logo">
+            <h1>TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN</h1>
+        </header>
+
+        <nav class="site-nav">
+            <ul>
+                <li><a href="#">Trang chủ</a></li>
+                <li><a href="#">Thông tin</a></li>
+                <li><a href="#">Giới thiệu</a></li>
+                <li><a href="#">Tuyển sinh</a></li>
+                <li><a href="#">Nghiên cứu</a></li>
+            </ul>
+        </nav>
+
+        <div class="site-body">
+
+            <main class="site-main">
+
+                <section>
+                    <h3>Chương trình tiên tiến</h3>
+
+                    <p>
+                        Chương trình đào tạo tiên tiến là dự án quốc gia
+                        do Bộ GD&amp;ĐT
+                    </p>
+
+                    <p class="faculty">
+                        Khoa HTTT
+                    </p>
+                </section>
+
+                <section>
+                    <h3>Ngành An Toàn Thông Tin</h3>
+
+                    <p>
+                        Chương trình đào tạo kỹ sư tài năng ngành An toàn Thông tin
+                        cho phép sinh viên tiếp cận với một chương trình đào tạo tiên tiến,
+                        thực tập với những công nghệ hiện đại, được sử dụng những tài liệu
+                        mới cập nhật và học tập trong điều kiện chất lượng cao.
+                    </p>
+
+                    <p class="faculty">
+                        Khoa MMT
+                    </p>
+                </section>
+
+            </main>
+
+            <aside class="site-aside">
+
+                <h3>
+                    THÔNG TIN MỚI NHẤT VỀ
+                    KỲ THI THPT QUỐC GIA 2015
+                </h3>
+
+                <p>
+                    Sáng 10/12, Phó Cục trưởng Cục Khảo thí&amp;Kiểm định
+                    chất lượng, Bộ GD-ĐT Trần Văn Nghĩa tiếp tục giải đáp
+                    hàng loạt câu hỏi nóng liên quan đến kỳ thi THPT
+                    quốc gia năm 2015.
+                </p>
+
+            </aside>
+
+        </div>
+
+        <footer class="site-footer">
+            Copyright 2014
+        </footer>
+
+    </div>
+
+</body>
+
+</html>

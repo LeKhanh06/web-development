@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Phiếu đăng ký tour du lịch</title>
+
+    <style>
+        body {
+            background-color: #FFDD99;
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        .form-box {
+            width: 500px;
+            margin: 30px auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 26px;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid #666666;
+            padding: 3px;
+        }
+
+        .label {
+            width: 180px;
+            color: blue;
+        }
+
+        .input-name {
+            width: 115px;
+        }
+
+        .input-address {
+            width: 250px;
+        }
+
+        .input-phone {
+            width: 115px;
+        }
+
+        select {
+            width: 145px;
+        }
+
+        fieldset {
+            width: 250px;
+            padding: 5px 10px 8px;
+            border: 1px solid #999999;
+            color: blue;
+        }
+
+        fieldset input {
+            width: 35px;
+        }
+
+        textarea {
+            width: 250px;
+            height: 75px;
+            resize: none;
+        }
+
+        .button-row {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-box">
+
+        <h1>Phiếu đăng ký tour du lịch</h1>
+
+        <form>
+
+            <table>
+
+                <tr>
+                    <td class="label">Họ và tên khách</td>
+
+                    <td>
+                        <input
+                            type="text"
+                            class="input-name"
+                            name="hoten"
+                            placeholder="Nguyễn Văn A">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label">Địa chỉ</td>
+
+                    <td>
+                        <input
+                            type="text"
+                            class="input-address"
+                            name="diachi"
+                            placeholder="abc, xyz, jqk">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label">Điện thoại</td>
+
+                    <td>
+                        <input
+                            type="text"
+                            class="input-phone"
+                            name="dienthoai"
+                            placeholder="09xxxxxxxx">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label">Tour</td>
+
+                    <td>
+                        <select name="tour">
+                            <option selected disabled>Chọn tour</option>
+                            <option>Hà Nội – Hạ Long – Tuần Châu (10.000.000 đ)</option>
+                            <option>Hà Nội – Sapa (6.000.000 đ)</option>
+                            <option>Đà Nẵng – Hội An (3.000.000 đ)</option>
+                            <option>Buôn Mê Thuộc – Kon Tum (2.000.000 đ)</option>
+                            <option>TP.HCM – Nha Trang (3.500.000 đ)</option>
+                            <option>TP.HCM – Cần Thơ – Cà Mau (2.500.000 đ)</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+
+                        <fieldset>
+
+                            <legend>Số lượng đoàn khách</legend>
+
+                            Người lớn
+                            <input
+                                type="number"
+                                name="nguoilon"
+                                value="1"
+                                min="0">
+
+                            Trẻ em
+                            <input
+                                type="number"
+                                name="treem"
+                                value="0"
+                                min="0">
+
+                        </fieldset>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label">Ghi chú</td>
+
+                    <td>
+                        <textarea name="ghichu"></textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" class="button-row">
+                        <input type="submit" value="Đăng ký">
+                    </td>
+                </tr>
+
+            </table>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

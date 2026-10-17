@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<!-- Câu 2: Tính tiền thức ăn và nước uống. HTML/CSS trong file này; JavaScript nằm ở cau2.js. -->
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Câu 2 — Thực đơn</title>
+        <!-- CSS dùng chung -->
+        <style id="common-style">
+/* CSS chung: bố cục cơ bản, bảng, ô nhập và nút. Mỗi bài tải thêm file CSS cùng tên. */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 24px 16px;
+    color: black;
+    background: white;
+    font: 16px "Times New Roman", serif;
+    line-height: 1.2;
+}
+
+main {
+    max-width: 1000px;
+    margin: auto;
+}
+
+h1,
+h2,
+h3 {
+    text-align: center;
+}
+
+a {
+    color: #0033cc;
+}
+
+nav {
+    margin-bottom: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0;
+    background: white;
+}
+
+th,
+td {
+    border: 1px solid #888;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    text-align: center;
+}
+
+input,
+select,
+textarea,
+button {
+    font: inherit;
+    max-width: 100%;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="range"]),
+textarea {
+    width: 100%;
+}
+
+input,
+select,
+textarea {
+    padding: 5px;
+}
+
+button {
+    padding: 6px 16px;
+    cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid #006d77;
+    outline-offset: 2px;
+}
+
+select[multiple] {
+    width: 100%;
+    min-height: 150px;
+}
+
+.form-table {
+    max-width: 650px;
+    margin: 16px auto;
+}
+
+.center {
+    text-align: center;
+}
+
+.note {
+    color: #555;
+}
+
+.error {
+    color: #a40000;
+}
+
+@media (max-width: 750px) {
+    body {
+        padding: 12px;
+    }
+}
+
+@media print {
+    nav,
+    .print-button {
+        display: none;
+    }
+}
+
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+}
+
+main {
+    max-width: 920px;
+}
+
+nav {
+    margin-bottom: 24px;
+    font: 13px Arial, sans-serif;
+}
+
+h1 {
+    font-size: 22px;
+}
+
+table {
+    margin: 0;
+}
+
+th,
+td {
+    padding: 3px 5px;
+    text-align: left;
+    border-color: #999;
+}
+
+caption {
+    padding: 4px;
+    border: 1px solid #999;
+    border-bottom: 0;
+    font-weight: bold;
+}
+
+input,
+select,
+textarea,
+button {
+    font: 13px Arial, sans-serif;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="range"]):not([type="file"]) {
+    width: 200px;
+    height: 22px;
+    padding: 1px 3px;
+}
+
+select {
+    padding: 0;
+}
+
+textarea {
+    padding: 2px;
+}
+
+button {
+    padding: 2px 12px;
+}
+
+select[multiple] {
+    min-height: 0;
+}
+
+.form-table {
+    margin: 0 auto;
+}
+
+.note,
+small {
+    font: 12px Arial, sans-serif;
+}
+
+@media (max-width: 650px) {
+    body {
+        padding: 16px 8px;
+    }
+}
+        </style>
+        <!-- CSS riêng của câu 2 -->
+        <style id="exercise-style">
+/* Câu 2 — cqw giúp chữ và điều khiển thu nhỏ theo chiều rộng khung.
+   Khi bảng rộng 800px, các kích thước đạt đúng thông số của ảnh mẫu. */
+.menu main {
+    max-width: 842px;
+    container-type: inline-size;
+    font-family: "Times New Roman", serif;
+}
+
+.menu #menu-form .form-table {
+    width: 95%;
+    max-width: 800px;
+    table-layout: fixed;
+    background: #ccff00;
+    border: 3px solid #a4c400;
+}
+
+.menu .food-column { width: 25%; }
+.menu .drink-column { width: 28.5%; }
+.menu .time-column { width: 46.5%; }
+
+.menu #menu-form caption {
+    height: clamp(68px, 16.27cqw, 137px);
+    padding: 0;
+    border: 3px solid #a4c400;
+    border-bottom: 0;
+    background: #ccff00;
+    color: black;
+    font: bold clamp(22px, 5.225cqw, 44px)/clamp(68px, 16.27cqw, 137px) "Times New Roman", serif;
+}
+
+.menu #menu-form th,
+.menu #menu-form td {
+    border: 3px solid #a4c400;
+    padding: clamp(2px, .594cqw, 5px);
+    vertical-align: middle;
+    background: #ccff00;
+}
+
+.menu #menu-form th {
+    height: clamp(25px, 5.82cqw, 49px);
+    padding: 0;
+    color: #0000ff;
+    text-align: center;
+    white-space: nowrap;
+    font: bold clamp(18px, 4.275cqw, 36px)/1 "Times New Roman", serif;
+}
+
+.menu #menu-form tr:nth-child(2) {
+    height: clamp(125px, 29.45cqw, 248px);
+}
+
+/* Select ẩn chỉ lưu dữ liệu; listbox hiển thị bảy dòng, không có vùng cuộn. */
+.menu #menu-form select[hidden] {
+    display: none;
+}
+
+.menu .menu-listbox {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0 clamp(7px, 1.425cqw, 12px) 0 0;
+    border: 3px inset #bcbcbc;
+    border-radius: 0;
+    background: white;
+    color: black;
+    font: normal clamp(14px, 3.325cqw, 28px)/1.18 "Times New Roman", serif;
+    overflow: clip;
+}
+
+/* Dải phải là trang trí tĩnh, không nhận chuột và không có nút kéo. */
+.menu .menu-listbox::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: clamp(7px, 1.425cqw, 12px);
+    border-left: 1px solid #ddd;
+    background: linear-gradient(to right, #f8f8f8, #e1e1e1, white);
+    pointer-events: none;
+}
+
+.menu .menu-list-option {
+    display: flex;
+    align-items: center;
+    height: clamp(16.5px, 3.919cqw, 33px);
+    padding: 0 1px;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    background: white;
+    color: black;
+}
+
+.menu .menu-list-option[aria-selected="true"] {
+    background: #ccc;
+}
+
+.menu .menu-list-option:focus-visible {
+    outline: 1px dotted #333;
+    outline-offset: -1px;
+}
+
+.menu #menu-form tr:nth-child(2) td:last-child {
+    padding-left: clamp(5px, 1.188cqw, 10px);
+}
+
+.menu #menu-form td:last-child label {
+    display: flex;
+    align-items: center;
+    gap: clamp(6px, 1.425cqw, 12px);
+    margin: 0;
+    white-space: nowrap;
+    font: normal clamp(16px, 3.801cqw, 32px)/1 "Times New Roman", serif;
+}
+
+.menu #menu-form td:last-child br {
+    display: none;
+}
+
+/* Nhãn cao 32px cộng khoảng trống 42px tạo khoảng cách hai tâm 74px. */
+.menu #menu-form td:last-child label ~ label {
+    margin-top: clamp(21px, 4.988cqw, 42px);
+}
+
+.menu input[type="radio"] {
+    appearance: none;
+    flex: 0 0 auto;
+    width: clamp(13px, 3.088cqw, 26px);
+    height: clamp(13px, 3.088cqw, 26px);
+    margin: 0;
+    padding: 0;
+    border: 1px solid #8a969d;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fff 20%, #f6f7f7 65%, #e4e8eb);
+    box-shadow: inset 1px 1px 0 #fff, 1px 1px 1px #8d9f85;
+}
+
+.menu input[type="radio"]:checked {
+    /* Lớp chuyển sắc đầu vẽ chấm xanh nhỏ ngay chính tâm nút. */
+    --dot-radius: clamp(1.5px, .356cqw, 3px);
+    background: radial-gradient(circle at center, #06466f 0 var(--dot-radius), transparent calc(var(--dot-radius) + .3px)), radial-gradient(circle at center, #bcefff 0%, #73c9ef 55%, #388cbd 100%);
+    border-color: #638d9e;
+    box-shadow: inset 1px 1px 0 #bcefff, 1px 1px 1px #427b98;
+}
+
+.menu input[type="radio"]:focus-visible {
+    outline: 2px solid #0033cc;
+    outline-offset: 2px;
+}
+
+.menu #menu-form .center {
+    height: clamp(30px, 7.126cqw, 60px);
+    padding: 4px;
+}
+
+.menu #menu-form .center button {
+    display: block;
+    width: clamp(75px, 17.815cqw, 150px);
+    height: clamp(22px, 4.751cqw, 40px);
+    margin: 0 auto;
+    padding: 0 4px;
+    border: 2px solid #777;
+    border-radius: 30px;
+    background: linear-gradient(white 40%, #e4e4e4);
+    box-shadow: 0 2px 3px #83934a, inset 0 1px 1px white;
+    color: black;
+    font: normal clamp(14px, 3.325cqw, 28px)/1 "Times New Roman", serif;
+    white-space: nowrap;
+}
+
+.menu main > p {
+    width: 95%;
+    margin: 12px auto;
+    font: 13px "Times New Roman", serif;
+}
+
+.menu #bill table {
+    width: 660px;
+    max-width: 95%;
+    margin: 25px auto 5px;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background: #99ffff;
+    border: 3px solid #800000;
+    outline: 5px solid #cccf00;
+    border-radius: 0;
+    box-shadow: none;
+    color: black;
+    font: normal clamp(18px, 3.801cqw, 32px)/1.15 "Times New Roman", serif;
+}
+
+/* Viền đỏ dùng chung giữa các ô; outline tạo viền ngoài mà không làm hở lưới. */
+.menu #bill th,
+.menu #bill td {
+    height: 47px;
+    padding: 0 3px;
+    border: 3px solid #800000;
+    background: #99ffff;
+    color: black;
+    font-weight: normal;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.menu #bill tr > :first-child {
+    width: 62%;
+}
+
+.menu #bill tr > :nth-child(2) {
+    width: 38%;
+}
+
+/* Chỉ hàng đầu là tiêu đề; hàng Tổng tiền vẫn giữ chữ thường và căn trái. */
+.menu #bill tr:first-child th {
+    text-align: center;
+    color: #0000ff;
+    font-weight: bold;
+}
+        </style>
+        <!-- CSS chỉ dùng khi mở trang kết quả, không áp dụng cho trang hiện tại. -->
+        <style id="result-style" media="not all">
+/* Định dạng chung cho trang hóa đơn, vé, đăng ký tour và kết quả CV. */
+
+.result-page main {
+    max-width: 460px;
+    padding: 8px;
+    border: 1px solid #888;
+}
+
+.result-page h1 {
+    margin: 0 0 18px;
+    font-size: 18px;
+}
+
+.result-page p {
+    margin: 12px 0;
+}
+
+.result-page table {
+    margin-top: 15px;
+}
+
+.result-page th,
+.result-page td {
+    border: 0;
+    padding: 8px;
+    text-align: center;
+}
+
+.result-page tr:last-child {
+    font-weight: bold;
+}
+
+.result-page .print-button {
+    display: block;
+    margin: 20px auto 0;
+}
+        </style>
+    </head>
+    <body class="menu">
+        <main>
+            <nav>
+                <a href="index.html">← Danh sách bài</a>
+            </nav>
+            <p>Nhấn vào từng món để chọn hoặc bỏ chọn; có thể chọn nhiều món cùng lúc.</p>
+            <form id="menu-form">
+                <table class="form-table">
+                    <caption>THỰC ĐƠN</caption>
+                    <!-- colgroup cố định tỷ lệ ba cột, không phụ thuộc độ dài tên món. -->
+                    <colgroup>
+                        <col class="food-column">
+                        <col class="drink-column">
+                        <col class="time-column">
+                    </colgroup>
+                    <tr>
+                        <th>
+                            <label for="foods">Thức ăn</label>
+                        </th>
+                        <th>
+                            <label for="drinks">Nước uống</label>
+                        </th>
+                        <th>Thời điểm</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select id="foods" multiple size="7">
+                                <option value="20000" selected>Bún bò</option>
+                                <option value="18000">Hủ tiếu</option>
+                                <option value="17000">Bánh canh</option>
+                                <option value="19000">Phở bò</option>
+                                <option value="15000" selected>Nuôi</option>
+                                <option value="12000">Bánh mì thịt</option>
+                                <option value="15000">Bánh cuốn</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="drinks" multiple size="7">
+                                <option value="12000" selected>Cà phê đá</option>
+                                <option value="15000">Cà phê sữa đá</option>
+                                <option value="13000" selected>Chanh dây</option>
+                                <option value="12000">Chanh muối</option>
+                                <option value="14000">Xí muội</option>
+                                <option value="13000">Sữa tươi</option>
+                                <option value="17000">Cam vắt</option>
+                            </select>
+                        </td>
+                        <td>
+                            <label>
+                                <input type="radio" name="time" value="day" checked> Ban ngày</label>
+                            <br>
+                            <label>
+                                <input type="radio" name="time" value="night"> Ban đêm</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="center">
+                            <button>Tính tiền</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <section id="bill" aria-live="polite">
+            </section>
+        </main>
+        <!-- JavaScript đặt sau HTML để các ô và nút đã tồn tại khi xử lý. -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="cau2.js"></script>
+    </body>
+</html>

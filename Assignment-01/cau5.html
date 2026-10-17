@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đăng nhập hệ thống</title>
+  <style>
+    body {
+      width: 600px;                 /* khung rộng 600px, căn giữa trang */
+      margin: 0 auto;
+      font-family: "Times New Roman", Times, serif;
+      font-size: 20px;
+    }
+
+    /* Tiêu đề: chữ thường, căn giữa, màu theo yêu cầu */
+    p.tieu-de {
+      text-align: center;
+      font-size: 24px;
+      color: #8A2BE2;
+      margin: 30px 0 22px;
+    }
+
+    /* Đường kẻ: dày, màu #0000FF, rộng 84% khung */
+    hr {
+      width: 84%;
+      height: 3px;
+      border: none;
+      background: #0000FF;
+      margin: 0 auto;
+    }
+
+    /* Bảng nằm lệch trái một chút so với đường kẻ, không có viền */
+    table {
+      margin: 18px 0 0 89px;
+      border-collapse: collapse;
+    }
+    td { padding: 3px 0; }
+    td:first-child { width: 188px; }
+
+    /* Ô nhập: viền xám nhạt, chữ gợi ý màu xám */
+    input[type="text"],
+    input[type="password"] {
+      box-sizing: border-box;
+      width: 154px;
+      height: 27px;
+      padding: 2px 3px;
+      border: 2px inset #cfcfcf;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+    }
+    input::placeholder { color: #999; }
+
+    /* Nút Đăng nhập: bo tròn, viền xám đậm, nền chuyển sắc trắng -> xám nhạt */
+    input[type="submit"] {
+      box-sizing: border-box;
+      width: 94px;
+      height: 27px;
+      padding: 0;
+      border: 2px solid #707070;
+      border-radius: 14px;
+      background: linear-gradient(to bottom, #ffffff 0%, #f2f2f2 45%, #dcdcdc 100%);
+      color: #000;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    input[type="submit"]:active {
+      background: linear-gradient(to bottom, #d0d0d0 0%, #e8e8e8 100%);
+    }
+
+    /* Dòng liên kết: nghiêng, căn giữa */
+    p.lien-ket {
+      text-align: center;
+      font-style: italic;
+      margin: 10px 0 16px;
+    }
+  </style>
+</head>
+<body>
+  <p class="tieu-de">Đăng nhập hệ thống</p>
+  <hr>
+
+  <form>
+    <table>
+      <tr>
+        <td>Tên đăng nhập</td>
+        <td><input type="text" placeholder="nhập tên"></td>
+      </tr>
+      <tr>
+        <td>Mật khẩu</td>
+        <td><input type="password" placeholder="nhập mã số"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="submit" value="Đăng nhập"></td>
+      </tr>
+    </table>
+
+    <p class="lien-ket">Quên mật khẩu | Đăng ký</p>
+  </form>
+
+  <hr>
+</body>
+</html>

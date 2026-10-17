@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bài thực hành 2</title>
+        <style>
+/* CSS chung: bố cục cơ bản, bảng, ô nhập và nút. Mỗi bài tải thêm file CSS cùng tên. */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 24px 16px;
+    color: black;
+    background: white;
+    font: 16px "Times New Roman", serif;
+    line-height: 1.2;
+}
+
+main {
+    max-width: 1000px;
+    margin: auto;
+}
+
+h1,
+h2,
+h3 {
+    text-align: center;
+}
+
+a {
+    color: #0033cc;
+}
+
+nav {
+    margin-bottom: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0;
+    background: white;
+}
+
+th,
+td {
+    border: 1px solid #888;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    text-align: center;
+}
+
+input,
+select,
+textarea,
+button {
+    font: inherit;
+    max-width: 100%;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="range"]),
+textarea {
+    width: 100%;
+}
+
+input,
+select,
+textarea {
+    padding: 5px;
+}
+
+button {
+    padding: 6px 16px;
+    cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid #006d77;
+    outline-offset: 2px;
+}
+
+select[multiple] {
+    width: 100%;
+    min-height: 150px;
+}
+
+.form-table {
+    max-width: 650px;
+    margin: 16px auto;
+}
+
+.center {
+    text-align: center;
+}
+
+.note {
+    color: #555;
+}
+
+.error {
+    color: #a40000;
+}
+
+@media (max-width: 750px) {
+    body {
+        padding: 12px;
+    }
+}
+
+@media print {
+    nav,
+    .print-button {
+        display: none;
+    }
+}
+
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+}
+
+main {
+    max-width: 920px;
+}
+
+nav {
+    margin-bottom: 24px;
+    font: 13px Arial, sans-serif;
+}
+
+h1 {
+    font-size: 22px;
+}
+
+table {
+    margin: 0;
+}
+
+th,
+td {
+    padding: 3px 5px;
+    text-align: left;
+    border-color: #999;
+}
+
+caption {
+    padding: 4px;
+    border: 1px solid #999;
+    border-bottom: 0;
+    font-weight: bold;
+}
+
+input,
+select,
+textarea,
+button {
+    font: 13px Arial, sans-serif;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="range"]):not([type="file"]) {
+    width: 200px;
+    height: 22px;
+    padding: 1px 3px;
+}
+
+select {
+    padding: 0;
+}
+
+textarea {
+    padding: 2px;
+}
+
+button {
+    padding: 2px 12px;
+}
+
+select[multiple] {
+    min-height: 0;
+}
+
+.form-table {
+    margin: 0 auto;
+}
+
+.note,
+small {
+    font: 12px Arial, sans-serif;
+}
+
+@media (max-width: 650px) {
+    body {
+        padding: 16px 8px;
+    }
+}
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>Bài thực hành 2 — JavaScript</h1>
+            <p>Chọn một bài bên dưới. Mỗi câu gồm file HTML/CSS và file JavaScript cùng tên, có chú thích cách làm.</p>
+            <h2>III. Thực hành tại lớp</h2>
+            <ol>
+                <li>
+                    <a href="cau1.html">Tính lương tháng</a>
+                </li>
+                <li>
+                    <a href="cau2.html">Tính tiền thức ăn và nước uống</a>
+                </li>
+                <li>
+                    <a href="cau3.html">Quản lý món ăn theo bàn</a>
+                </li>
+                <li>
+                    <a href="cau4.html">Mua vé xem phim</a>
+                </li>
+                <li>
+                    <a href="cau5.html">Chỉnh sửa giỏ hàng</a>
+                </li>
+                <li>
+                    <a href="cau6.html">Đăng ký du lịch</a>
+                </li>
+                <li>
+                    <a href="cau7.html">Đăng ký CV</a>
+                </li>
+            </ol>
+            <h2>IV. Bài tập làm thêm</h2>
+            <ol>
+                <li>
+                    <a href="cau8.html">Máy tính cơ bản</a>
+                </li>
+                <li>
+                    <a href="cau9.html">Slideshow ảnh</a>
+                </li>
+                <li>
+                    <a href="cau10.html">Danh sách công việc</a>
+                </li>
+            </ol>
+            <p>Ảnh sử dụng từ PDF nằm trong thư mục <code>picture</code>. Xem <code>picture/README.md</code> để biết tên ảnh.</p>
+        </main>
+    </body>
+</html>

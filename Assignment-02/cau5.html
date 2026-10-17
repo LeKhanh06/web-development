@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<!-- Câu 5: Chỉnh sửa giỏ hàng. HTML/CSS trong file này; JavaScript nằm ở cau5.js. -->
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Câu 5 — Giỏ hàng</title>
+        <!-- CSS dùng chung -->
+        <style id="common-style">
+/* CSS chung: bố cục cơ bản, bảng, ô nhập và nút. Mỗi bài tải thêm file CSS cùng tên. */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 24px 16px;
+    color: black;
+    background: white;
+    font: 16px "Times New Roman", serif;
+    line-height: 1.2;
+}
+
+main {
+    max-width: 1000px;
+    margin: auto;
+}
+
+h1,
+h2,
+h3 {
+    text-align: center;
+}
+
+a {
+    color: #0033cc;
+}
+
+nav {
+    margin-bottom: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0;
+    background: white;
+}
+
+th,
+td {
+    border: 1px solid #888;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    text-align: center;
+}
+
+input,
+select,
+textarea,
+button {
+    font: inherit;
+    max-width: 100%;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="range"]),
+textarea {
+    width: 100%;
+}
+
+input,
+select,
+textarea {
+    padding: 5px;
+}
+
+button {
+    padding: 6px 16px;
+    cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid #006d77;
+    outline-offset: 2px;
+}
+
+select[multiple] {
+    width: 100%;
+    min-height: 150px;
+}
+
+.form-table {
+    max-width: 650px;
+    margin: 16px auto;
+}
+
+.center {
+    text-align: center;
+}
+
+.note {
+    color: #555;
+}
+
+.error {
+    color: #a40000;
+}
+
+@media (max-width: 750px) {
+    body {
+        padding: 12px;
+    }
+}
+
+@media print {
+    nav,
+    .print-button {
+        display: none;
+    }
+}
+
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+}
+
+main {
+    max-width: 920px;
+}
+
+nav {
+    margin-bottom: 24px;
+    font: 13px Arial, sans-serif;
+}
+
+h1 {
+    font-size: 22px;
+}
+
+table {
+    margin: 0;
+}
+
+th,
+td {
+    padding: 3px 5px;
+    text-align: left;
+    border-color: #999;
+}
+
+caption {
+    padding: 4px;
+    border: 1px solid #999;
+    border-bottom: 0;
+    font-weight: bold;
+}
+
+input,
+select,
+textarea,
+button {
+    font: 13px Arial, sans-serif;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="range"]):not([type="file"]) {
+    width: 200px;
+    height: 22px;
+    padding: 1px 3px;
+}
+
+select {
+    padding: 0;
+}
+
+textarea {
+    padding: 2px;
+}
+
+button {
+    padding: 2px 12px;
+}
+
+select[multiple] {
+    min-height: 0;
+}
+
+.form-table {
+    margin: 0 auto;
+}
+
+.note,
+small {
+    font: 12px Arial, sans-serif;
+}
+
+@media (max-width: 650px) {
+    body {
+        padding: 16px 8px;
+    }
+}
+        </style>
+        <!-- CSS riêng của câu 5 -->
+        <style id="exercise-style">
+/* Câu 5 — Giỏ hàng. Viền kiểu bảng border="1" cổ điển: khung ngoài nổi, ô lõm 1px, khe hở 2px. */
+
+.cart {
+    background: #ffedca;
+}
+
+.cart main {
+    max-width: 1040px;
+}
+
+.cart h1 {
+    display: none;
+}
+
+.cart main > p {
+    font-size: 13px;
+}
+
+.cart table {
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border: 1px outset gray;
+    background: #ffedca;
+    font: bold 18px "Times New Roman", serif;
+}
+
+.cart th,
+.cart td {
+    padding: 3px 5px;
+    border: 1px inset gray;
+    background: #ffedca;
+    vertical-align: middle;
+}
+
+.cart thead th {
+    height: 44px;
+    text-align: center;
+}
+
+.cart thead th:nth-child(1) { width: 24%; }
+.cart thead th:nth-child(2) { width: 21%; }
+.cart thead th:nth-child(3) { width: 21%; }
+.cart thead th:nth-child(4) { width: 17%; }
+.cart thead th:nth-child(5) { width: 17%; }
+
+.cart tbody td {
+    height: 52px;
+}
+
+.cart tbody td:last-child {
+    text-align: center;
+}
+
+.cart .amount {
+    white-space: nowrap;
+}
+
+.cart tfoot th,
+.cart tfoot td {
+    height: 36px;
+    text-align: left;
+}
+
+/* Dùng #cart-items để thắng quy tắc input chung (width 200px, height 22px). */
+.cart #cart-items input {
+    width: 100% !important;
+    height: 40px;
+    padding: 0 4px;
+    border: 1px solid #767676;
+    border-radius: 3px;
+    background: white;
+    color: black;
+    font: normal 16px Arial, sans-serif;
+}
+
+.cart #cart-items button {
+    width: 96px;
+    height: 38px;
+    padding: 0;
+    border: 1px solid #333;
+    border-radius: 12px;
+    background: #f0f0f0;
+    color: black;
+    font: normal 18px Arial, sans-serif;
+}
+
+@media (max-width: 650px) {
+    .cart main {
+        overflow-x: auto;
+    }
+
+    .cart table {
+        min-width: 640px;
+    }
+}
+        </style>
+        <!-- CSS chỉ dùng khi mở trang kết quả, không áp dụng cho trang hiện tại. -->
+        <style id="result-style" media="not all">
+/* Định dạng chung cho trang hóa đơn, vé, đăng ký tour và kết quả CV. */
+
+.result-page main {
+    max-width: 460px;
+    padding: 8px;
+    border: 1px solid #888;
+}
+
+.result-page h1 {
+    margin: 0 0 18px;
+    font-size: 18px;
+}
+
+.result-page p {
+    margin: 12px 0;
+}
+
+.result-page table {
+    margin-top: 15px;
+}
+
+.result-page th,
+.result-page td {
+    border: 0;
+    padding: 8px;
+    text-align: center;
+}
+
+.result-page tr:last-child {
+    font-weight: bold;
+}
+
+.result-page .print-button {
+    display: block;
+    margin: 20px auto 0;
+}
+        </style>
+    </head>
+    <body class="cart">
+        <main>
+            <nav>
+                <a href="index.html">← Danh sách bài</a>
+            </nav>
+            <h1>Chỉnh sửa giỏ hàng</h1>
+            <p>Nhập đơn giá bằng chữ số, ví dụ: 31000000.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Thành tiền</th>
+                        <th>Chức năng</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items">
+                    <tr>
+                        <td>iPhone 11 Pro Max 64GB</td>
+                        <td>
+                            <input class="quantity" type="number" min="0" step="1" value="2" aria-label="Số lượng iPhone">
+                        </td>
+                        <td>
+                            <input class="price" type="text" inputmode="numeric" value="31000000" aria-label="Đơn giá iPhone">
+                        </td>
+                        <td class="amount">
+                        </td>
+                        <td>
+                            <button type="button">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Samsung Galaxy Note 10+</td>
+                        <td>
+                            <input class="quantity" type="number" min="0" step="1" value="1" aria-label="Số lượng Samsung">
+                        </td>
+                        <td>
+                            <input class="price" type="text" inputmode="numeric" value="16000000" aria-label="Đơn giá Samsung">
+                        </td>
+                        <td class="amount">
+                        </td>
+                        <td>
+                            <button type="button">Xóa</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="3">Tổng tiền</th>
+                        <td colspan="2" id="cart-total" aria-live="polite">
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            <p id="cart-error" class="error" aria-live="polite">
+            </p>
+        </main>
+        <!-- JavaScript đặt sau HTML để các ô và nút đã tồn tại khi xử lý. -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="cau5.js"></script>
+    </body>
+</html>

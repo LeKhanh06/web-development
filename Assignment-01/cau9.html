@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Menu ngang</title>
+  <style>
+    ul { list-style: none; margin: 0; padding: 0; }
+
+    .menu { background: #00008B; display: flex; padding-left: 120px; }
+    .menu li { position: relative; }
+    .menu a { display: block; padding: 14px 20px;
+              color: #FFD700; text-decoration: none; }
+    .menu > li > a:hover { background: #ADFF2F; }
+
+    .menu li ul { display: none; position: absolute;
+                  top: 100%; left: 0; width: 180px; background: #00008B; }
+    .menu li:hover ul { display: block; }
+    .menu li ul a:hover { background: lightblue; }
+  </style>
+</head>
+<body>
+  <ul class="menu">
+    <li><a href="#">Trang chủ</a></li>
+    <li><a href="#">Du lịch</a>
+      <ul>
+        <li><a href="#">Trong nước</a></li>
+        <li><a href="#">Quốc tế</a></li>
+        <li><a href="#">Tự chọn</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Tin tức</a></li>
+    <li><a href="#">Khuyến mại</a></li>
+    <li><a href="#">Liên hệ</a></li>
+  </ul>
+</body>
+</html>

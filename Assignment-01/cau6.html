@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Phiếu đăng ký tham gia dự thưởng</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding-top: 30px;
+            background-color: #FFEDCA;
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        .register-box {
+            width: 630px;
+            margin: 0 auto;
+            padding-top: 24px;
+            padding-bottom: 21px;
+            background-color: #FFEDCA;
+            border: 1px solid #aaa;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin: 0 0 27px 0;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 583px;
+            margin-left: 9px;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        td {
+            height: 34px;
+            padding: 3px;
+            border: 1px solid #666;
+            box-sizing: border-box;
+        }
+
+        .label {
+            width: 175px;
+            color: blue;
+            font-size: 17px;
+        }
+
+        .input-name {
+            width: 185px;
+            height: 27px;
+            box-sizing: border-box;
+        }
+
+        .input-address {
+            width: 400px;
+            height: 27px;
+            box-sizing: border-box;
+        }
+
+        .input-phone {
+            width: 185px;
+            height: 27px;
+            box-sizing: border-box;
+        }
+
+        .gender {
+            font-size: 17px;
+        }
+
+        .gender input {
+            margin: 0 5px 0 2px;
+        }
+
+        .product-row td {
+            height: 75px;
+        }
+
+        .product-select {
+            width: 187px;
+            height: 65px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        .number-input {
+            width: 185px;
+            height: 27px;
+            box-sizing: border-box;
+        }
+
+        .button-row {
+            text-align: center;
+        }
+
+        .button-row input {
+            width: 73px;
+            height: 26px;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="register-box">
+
+        <h1>Phiếu đăng ký tham gia dự thưởng</h1>
+
+        <form>
+
+            <table>
+
+                <tr>
+                    <td class="label">Họ và tên</td>
+                    <td>
+                        <input
+                            class="input-name"
+                            type="text"
+                            name="hoten"
+                            placeholder="Nguyễn Văn A">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label">Địa chỉ</td>
+                    <td>
+                        <input
+class="input-address"
+                            type="text"
+                            name="diachi"
+                            placeholder="abc, xyz, jqk">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label">Điện thoại</td>
+                    <td>
+                        <input
+                            class="input-phone"
+                            type="text"
+                            name="dienthoai"
+                            placeholder="09xxxxxxxx">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label">Phái</td>
+                    <td class="gender">
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="phai"
+                                value="Nam"
+                                checked>
+                            Nam
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="phai"
+                                value="Nu">
+                            Nữ
+                        </label>
+
+                    </td>
+                </tr>
+
+                <tr class="product-row">
+                    <td class="label">Sản phẩm</td>
+
+                    <td>
+                        <select
+                            class="product-select"
+                            name="sanpham"
+                            size="3">
+
+                            <option selected>Iphone 11 Pro Max</option>
+                            <option>Samsung Galaxy Note 20</option>
+                            <option>Xiaomi Redmi K30</option>
+                            <option>OPPO A53</option>
+
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label">Số dự đoán</td>
+
+                    <td>
+                        <input
+                            class="number-input"
+                            type="number"
+                            name="sodudoan"
+                            value="5"
+                            min="0">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" class="button-row">
+                        <input type="submit" value="Đăng ký">
+                    </td>
+                </tr>
+
+            </table>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

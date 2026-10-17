@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<!-- Câu 6: Đăng ký du lịch. HTML/CSS trong file này; JavaScript nằm ở cau6.js. -->
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Câu 6 — Du lịch</title>
+        <!-- CSS dùng chung -->
+        <style id="common-style">
+/* CSS chung: bố cục cơ bản, bảng, ô nhập và nút. Mỗi bài tải thêm file CSS cùng tên. */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 24px 16px;
+    color: black;
+    background: white;
+    font: 16px "Times New Roman", serif;
+    line-height: 1.2;
+}
+
+main {
+    max-width: 1000px;
+    margin: auto;
+}
+
+h1,
+h2,
+h3 {
+    text-align: center;
+}
+
+a {
+    color: #0033cc;
+}
+
+nav {
+    margin-bottom: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0;
+    background: white;
+}
+
+th,
+td {
+    border: 1px solid #888;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    text-align: center;
+}
+
+input,
+select,
+textarea,
+button {
+    font: inherit;
+    max-width: 100%;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="range"]),
+textarea {
+    width: 100%;
+}
+
+input,
+select,
+textarea {
+    padding: 5px;
+}
+
+button {
+    padding: 6px 16px;
+    cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid #006d77;
+    outline-offset: 2px;
+}
+
+select[multiple] {
+    width: 100%;
+    min-height: 150px;
+}
+
+.form-table {
+    max-width: 650px;
+    margin: 16px auto;
+}
+
+.center {
+    text-align: center;
+}
+
+.note {
+    color: #555;
+}
+
+.error {
+    color: #a40000;
+}
+
+@media (max-width: 750px) {
+    body {
+        padding: 12px;
+    }
+}
+
+@media print {
+    nav,
+    .print-button {
+        display: none;
+    }
+}
+
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+}
+
+main {
+    max-width: 920px;
+}
+
+nav {
+    margin-bottom: 24px;
+    font: 13px Arial, sans-serif;
+}
+
+h1 {
+    font-size: 22px;
+}
+
+table {
+    margin: 0;
+}
+
+th,
+td {
+    padding: 3px 5px;
+    text-align: left;
+    border-color: #999;
+}
+
+caption {
+    padding: 4px;
+    border: 1px solid #999;
+    border-bottom: 0;
+    font-weight: bold;
+}
+
+input,
+select,
+textarea,
+button {
+    font: 13px Arial, sans-serif;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="range"]):not([type="file"]) {
+    width: 200px;
+    height: 22px;
+    padding: 1px 3px;
+}
+
+select {
+    padding: 0;
+}
+
+textarea {
+    padding: 2px;
+}
+
+button {
+    padding: 2px 12px;
+}
+
+select[multiple] {
+    min-height: 0;
+}
+
+.form-table {
+    margin: 0 auto;
+}
+
+.note,
+small {
+    font: 12px Arial, sans-serif;
+}
+
+@media (max-width: 650px) {
+    body {
+        padding: 16px 8px;
+    }
+}
+        </style>
+        <!-- CSS riêng của câu 6 (bố cục theo câu 7, giữ nguyên màu câu 6) -->
+        <style id="exercise-style">
+/* Câu 6 — Đăng ký tour du lịch. */
+
+.tour {
+    background: #ffdd99;
+}
+
+.tour table {
+    background: #ffdd99;
+}
+
+/* Khung form giống câu 7 */
+.tour .form-box {
+    width: 500px;
+    max-width: 100%;
+    margin: 30px auto;
+}
+
+.tour h1 {
+    text-align: center;
+    font-size: 26px;
+    margin: 20px 0;
+}
+
+.tour .form-table {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+}
+
+.tour .form-table td:first-child {
+    color: blue;
+}
+
+.tour td {
+    padding: 3px;
+    border: 1px solid #666666;
+}
+
+.tour .label {
+    width: 180px;
+}
+
+/* Độ rộng các ô nhập giống câu 7 */
+.tour #tour-name {
+    width: 115px;
+}
+
+.tour #address {
+    width: 250px;
+}
+
+.tour #phone {
+    width: 115px;
+}
+
+.tour #tour {
+    width: 145px;
+}
+
+.tour fieldset {
+    display: block;
+    width: 250px;
+    max-width: 100%;
+    margin: 0;
+    padding: 5px 10px 8px;
+    border: 1px solid #999;
+}
+
+.tour legend {
+    color: blue;
+}
+
+.tour #adults,
+.tour #children {
+    width: 35px;
+}
+
+.tour textarea {
+    width: 250px;
+    height: 75px;
+    resize: both;
+}
+        </style>
+        <!-- CSS chỉ dùng khi mở trang kết quả, không áp dụng cho trang hiện tại. -->
+        <style id="result-style" media="not all">
+/* Trang kết quả đăng ký tour: hai khung viền đen như mẫu. */
+
+.result-page main {
+    max-width: 460px;
+    padding: 0;
+    border: 0;
+}
+
+/* Tiêu đề đã nằm trong khung đầu tiên nên ẩn h1 mặc định của trang kết quả. */
+.result-page main > h1 {
+    display: none;
+}
+
+.result-page .result-box {
+    margin: 0 0 24px;
+    padding: 8px 10px 12px;
+    border: 1px solid #000;
+    color: #000;
+    font: 18px "Times New Roman", serif;
+}
+
+.result-page h2 {
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+
+.result-page .info-title {
+    text-align: center;
+    font-weight: bold;
+}
+
+.result-page .group-title {
+    text-align: left;
+    font-weight: normal;
+}
+
+.result-page .info-row {
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    gap: 8px;
+    margin: 10px 0;
+    overflow-wrap: anywhere;
+}
+
+.result-page table {
+    margin: 16px 0 0;
+    table-layout: fixed;
+}
+
+/* Chia đều độ rộng các cột để tiêu đề và số liệu thẳng hàng, cân đối. */
+.result-page tr:first-child th:nth-child(1) {
+    width: 28%;
+}
+
+.result-page tr:first-child th:nth-child(2) {
+    width: 14%;
+}
+
+.result-page tr:first-child th:nth-child(3),
+.result-page tr:first-child th:nth-child(4) {
+    width: 29%;
+}
+
+.result-page th,
+.result-page td {
+    border: 0;
+    padding: 6px 8px;
+    text-align: center;
+    font: 15px "Times New Roman", serif;
+}
+
+.result-page td:first-child {
+    text-align: left;
+    padding-left: 24px;
+}
+
+.result-page th {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.result-page tr:last-child th {
+    padding-top: 14px;
+    font-size: 24px;
+}
+
+/* Hai cột tiền canh trái: tiêu đề và các số cùng mép trái nên thẳng hàng. */
+.result-page tr:first-child th:nth-child(n+3),
+.result-page td:nth-child(n+3) {
+    text-align: left;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+/* Dòng tổng tiền như mẫu: nhãn lệch về bên trái, số tiền canh phải. */
+.result-page th.total-label {
+    padding-left: 44px;
+    text-align: center;
+}
+
+.result-page th.total-amount {
+    padding-right: 59px;
+    text-align: right;
+}
+
+.result-page .print-button {
+    display: block;
+    margin: 20px auto 0;
+}
+        </style>
+    </head>
+    <body class="tour">
+        <main>
+            <nav>
+                <a href="index.html">← Danh sách bài</a>
+            </nav>
+            <div class="form-box">
+                <h1>Phiếu đăng ký tour du lịch</h1>
+                <form id="tour-form">
+                    <table class="form-table">
+                        <tr>
+                            <td class="label">
+                                <label for="tour-name">Họ và tên khách</label>
+                            </td>
+                            <td>
+                                <input id="tour-name" placeholder="Nguyễn Văn A" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                <label for="address">Địa chỉ</label>
+                            </td>
+                            <td>
+                                <input id="address" placeholder="abc, xyz, jqk" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                <label for="phone">Điện thoại</label>
+                            </td>
+                            <td>
+                                <input id="phone" type="tel" placeholder="09xxxxxxxx" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                <label for="tour">Tour</label>
+                            </td>
+                            <td>
+                                <select id="tour" required>
+                                    <option value="" selected disabled>Chọn tour</option>
+                                    <option value="10000000">Hà Nội – Hạ Long – Tuần Châu</option>
+                                    <option value="6000000">Hà Nội – Sapa</option>
+                                    <option value="3000000">Đà Nẵng – Hội An</option>
+                                    <option value="2000000">Buôn Mê Thuộc – Kon Tum</option>
+                                    <option value="3500000">TP.HCM – Nha Trang</option>
+                                    <option value="2500000">TP.HCM – Cần Thơ – Cà Mau</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <fieldset>
+                                    <legend>Số lượng khách đoàn</legend>
+                                    <label for="adults">Người lớn</label>
+                                    <input id="adults" type="number" min="0" step="1" value="1" required>
+                                    <label for="children">Trẻ em</label>
+                                    <input id="children" type="number" min="0" step="1" value="0" required>
+                                </fieldset>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                <label for="notes">Ghi chú</label>
+                            </td>
+                            <td>
+                                <textarea id="notes" rows="4"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="center">
+                                <button>Đăng ký</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </main>
+        <!-- JavaScript đặt sau HTML để các ô và nút đã tồn tại khi xử lý. -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="cau6.js"></script>
+    </body>
+</html>

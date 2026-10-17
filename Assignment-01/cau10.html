@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Menu dọc</title>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 20px; font-family: Arial, sans-serif; font-size: 15px; }
+
+    .side { width: 300px; background: #f8f8f8; border: 1px solid #3ddc97; }
+
+    .side h2 { margin: 0; padding: 14px 15px; font-size: 26px;
+               font-weight: normal; color: #777;
+               border-bottom: 1px solid #e7e7e7; }
+
+    .search { display: flex; padding: 12px 15px;
+              border-bottom: 1px solid #e7e7e7; }
+    .search input { flex: 1; padding: 9px 12px; border: 1px solid #ccc;
+                    border-radius: 4px 0 0 4px; font-size: 14px; }
+    .search button { width: 46px; border: 1px solid #ccc; border-left: 0;
+                     background: white; border-radius: 0 4px 4px 0; }
+
+    .side ul { list-style: none; margin: 0; padding: 0; }
+    .side a { display: block; position: relative; padding: 14px 15px;
+              color: #337ab7; text-decoration: none;
+              border-bottom: 1px solid #e7e7e7; }
+    .side a:hover { background: #eee; }
+
+    .active > a { background: #eee; }
+    .cap2 > li > a { padding-left: 25px; }
+    .cap2 .sp > a { background: #ececec; }
+    .cap3 > li > a { padding-left: 45px; border-bottom: 0; }
+
+    /* Mũi tên vẽ bằng CSS */
+    .xuong::after, .trai::after {
+      content: ""; position: absolute; right: 20px; top: 50%;
+      width: 7px; height: 7px;
+      border-right: 2px solid #7aa7d0; border-bottom: 2px solid #7aa7d0;
+    }
+    .xuong::after { transform: translateY(-75%) rotate(45deg); }
+    .trai::after  { transform: translateY(-50%) rotate(135deg); }
+  </style>
+</head>
+<body>
+  <div class="side">
+    <h2>TRANG QUẢN TRỊ</h2>
+
+    <form class="search">
+      <input type="text" placeholder="Search...">
+      <button type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+
+    <ul>
+      <li class="active">
+        <a href="#"><i class="fa-solid fa-gauge-high"></i> Quản Lý Chung</a>
+      </li>
+      <li>
+        <a href="#" class="xuong"><i class="fa-solid fa-sitemap"></i> Quản Lý</a>
+        <ul class="cap2">
+          <li class="sp">
+            <a href="#" class="xuong">Sản Phẩm</a>
+            <ul class="cap3">
+              <li><a href="#">Danh mục sản phẩm</a></li>
+              <li><a href="#">Sản phẩm</a></li>
+              <li><a href="#">Phiếu đặt hàng</a></li>
+              <li><a href="#">Hóa đơn</a></li>
+            </ul>
+          </li>
+          <li><a href="#" class="trai">Tài khoản</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

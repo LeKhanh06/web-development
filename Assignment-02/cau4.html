@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<!-- Câu 4: Mua vé xem phim. HTML/CSS trong file này; JavaScript nằm ở cau4.js. -->
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Câu 4 — Mua vé</title>
+        <!-- CSS dùng chung -->
+        <style id="common-style">
+/* CSS chung: bố cục cơ bản, bảng, ô nhập và nút. Mỗi bài tải thêm file CSS cùng tên. */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 24px 16px;
+    color: black;
+    background: white;
+    font: 16px "Times New Roman", serif;
+    line-height: 1.2;
+}
+
+main {
+    max-width: 1000px;
+    margin: auto;
+}
+
+h1,
+h2,
+h3 {
+    text-align: center;
+}
+
+a {
+    color: #0033cc;
+}
+
+nav {
+    margin-bottom: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0;
+    background: white;
+}
+
+th,
+td {
+    border: 1px solid #888;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    text-align: center;
+}
+
+input,
+select,
+textarea,
+button {
+    font: inherit;
+    max-width: 100%;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="range"]),
+textarea {
+    width: 100%;
+}
+
+input,
+select,
+textarea {
+    padding: 5px;
+}
+
+button {
+    padding: 6px 16px;
+    cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid #006d77;
+    outline-offset: 2px;
+}
+
+select[multiple] {
+    width: 100%;
+    min-height: 150px;
+}
+
+.form-table {
+    max-width: 650px;
+    margin: 16px auto;
+}
+
+.center {
+    text-align: center;
+}
+
+.note {
+    color: #555;
+}
+
+.error {
+    color: #a40000;
+}
+
+@media (max-width: 750px) {
+    body {
+        padding: 12px;
+    }
+}
+
+@media print {
+    nav,
+    .print-button {
+        display: none;
+    }
+}
+
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+}
+
+main {
+    max-width: 920px;
+}
+
+nav {
+    margin-bottom: 24px;
+    font: 13px Arial, sans-serif;
+}
+
+h1 {
+    font-size: 22px;
+}
+
+table {
+    margin: 0;
+}
+
+th,
+td {
+    padding: 3px 5px;
+    text-align: left;
+    border-color: #999;
+}
+
+caption {
+    padding: 4px;
+    border: 1px solid #999;
+    border-bottom: 0;
+    font-weight: bold;
+}
+
+input,
+select,
+textarea,
+button {
+    font: 13px Arial, sans-serif;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="range"]):not([type="file"]) {
+    width: 200px;
+    height: 22px;
+    padding: 1px 3px;
+}
+
+select {
+    padding: 0;
+}
+
+textarea {
+    padding: 2px;
+}
+
+button {
+    padding: 2px 12px;
+}
+
+select[multiple] {
+    min-height: 0;
+}
+
+.form-table {
+    margin: 0 auto;
+}
+
+.note,
+small {
+    font: 12px Arial, sans-serif;
+}
+
+@media (max-width: 650px) {
+    body {
+        padding: 16px 8px;
+    }
+}
+        </style>
+        <!-- CSS riêng của câu 4 -->
+        <style id="exercise-style">
+/* Câu 4 — Form mua vé xem phim. */
+
+.ticket {
+    padding: 12px 8px;
+    background: white;
+    font-family: "Times New Roman", serif;
+}
+
+.ticket main {
+    max-width: none;
+    margin: 0;
+}
+
+.ticket .ticket-customer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 12px;
+    font-size: 23px;
+}
+
+.ticket #customer {
+    font: 18px Arial, sans-serif;
+}
+
+.ticket .form-table {
+    width: 803px;
+    max-width: 100%;
+    margin: 0;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border: 1px solid black;
+    border-radius: 0;
+    background: white;
+}
+
+.ticket .form-table caption {
+    height: 37px;
+    padding: 0;
+    border: 1px solid black;
+    border-bottom: 0;
+    font: bold 21px/36px "Times New Roman", serif;
+    color: black;
+    background: white;
+}
+
+.ticket .form-table td {
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid black;
+    vertical-align: middle;
+    background: white;
+}
+
+.ticket .form-table td:first-child:not([colspan]) {
+    width: 27%;
+    padding: 0 8px;
+    font: normal 23px/1.15 "Times New Roman", serif;
+}
+
+.ticket select {
+    display: block;
+    width: 268px;
+    max-width: 100%;
+    height: 29px;
+    padding: 1px 4px;
+    border: 1px solid #999;
+    border-radius: 0;
+    background-color: white;
+    color: black;
+    font: normal 18px/23px Arial, sans-serif;
+}
+
+.ticket select:not([multiple]) {
+    appearance: none;
+    padding-right: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1L5 5L9 1' fill='none' stroke='%23888' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 5px center;
+}
+
+.ticket #seats {
+    height: 97px;
+    min-height: 0;
+    padding: 0;
+    overflow-y: scroll;
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+}
+
+.ticket #seats option {
+    min-height: 23px;
+    padding: 0 3px;
+    line-height: 23px;
+}
+
+.ticket #seats option:checked {
+    background: linear-gradient(#218bff, #218bff);
+    color: white;
+    -webkit-text-fill-color: white;
+}
+
+/* Thanh cuộn vuông với rãnh, con trượt và hai nút mũi tên kiểu cổ điển. */
+.ticket #seats::-webkit-scrollbar { width: 17px; }
+.ticket #seats::-webkit-scrollbar-track { background: #eee; }
+.ticket #seats::-webkit-scrollbar-thumb { background: #c8c8c8; border: 1px solid #aaa; border-radius: 0; }
+.ticket #seats::-webkit-scrollbar-button:single-button { display: block; height: 16px; background-color: #ddd; background-repeat: no-repeat; background-position: center; }
+.ticket #seats::-webkit-scrollbar-button:single-button:vertical:decrement { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='4'%3E%3Cpath d='M0 4L3.5 0L7 4Z' fill='%23666'/%3E%3C/svg%3E"); }
+.ticket #seats::-webkit-scrollbar-button:single-button:vertical:increment { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='4'%3E%3Cpath d='M0 0L3.5 4L7 0Z' fill='%23666'/%3E%3C/svg%3E"); }
+
+/* Khung giữ nguyên kích thước danh sách; thanh cuộn riêng chiếm 21px bên phải. */
+.ticket .seat-scroll {
+    display: flex;
+    width: 268px;
+    max-width: 100%;
+    height: 97px;
+    border: 1px solid #999;
+    background: white;
+}
+
+.ticket .seat-scroll #seats {
+    flex: 1;
+    width: 0;
+    min-width: 0;
+    height: 100%;
+    border: 0;
+    scrollbar-width: none;
+}
+
+.ticket .seat-scroll #seats::-webkit-scrollbar { display: none; }
+
+.ticket .seat-scrollbar {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 21px;
+    width: 21px;
+    background: #f1f1f1;
+    user-select: none;
+    touch-action: none;
+}
+
+.ticket .seat-scrollbar button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 22px;
+    width: 21px;
+    height: 22px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: #f1f1f1;
+    box-shadow: none;
+}
+
+.ticket .seat-scrollbar button::before {
+    content: "";
+    width: 9px;
+    height: 6px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 9px 6px;
+}
+
+.ticket .seat-scroll-up::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6' viewBox='0 0 9 6'%3E%3Cpath d='M1 5L4.5 1.5L8 5' fill='none' stroke='%23666' stroke-width='3' stroke-linejoin='miter'/%3E%3C/svg%3E"); }
+.ticket .seat-scroll-down::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6' viewBox='0 0 9 6'%3E%3Cpath d='M1 1L4.5 4.5L8 1' fill='none' stroke='%23666' stroke-width='3' stroke-linejoin='miter'/%3E%3C/svg%3E"); }
+.ticket .seat-scrollbar button:active { background: #d0d0d0; }
+
+.ticket .seat-scroll-track {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    background: #f1f1f1;
+}
+
+.ticket .seat-scroll-thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border: 0;
+    border-radius: 0;
+    background: #ccc;
+    cursor: default;
+}
+
+.ticket .ticket-date {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.ticket #show-date {
+    width: 161px;
+    height: 31px;
+    padding: 1px 3px;
+    border: 1px solid #999;
+    border-radius: 0;
+    background: white;
+    color: black;
+    font: 20px "Times New Roman", serif;
+}
+
+/* Ẩn hình lịch nhưng giữ vùng bấm để vẫn mở được bộ chọn ngày. */
+.ticket #show-date::-webkit-calendar-picker-indicator {
+    position: absolute;
+    inset: 0;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.ticket .date-hint {
+    display: none;
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    left: 8px;
+    align-items: center;
+    background: white;
+    color: black;
+    font: 20px "Times New Roman", serif;
+    letter-spacing: .5px;
+    pointer-events: none;
+}
+
+.ticket .ticket-date:has(input:invalid):not(:focus-within) .date-hint {
+    display: flex;
+}
+
+.ticket .ticket-date:has(input:invalid):not(:focus-within) input::-webkit-datetime-edit {
+    color: transparent;
+}
+
+.ticket .form-table tr:has(#seats) td { height: 113px; }
+.ticket .form-table .center { height: 52px; }
+
+.ticket .center button {
+    width: 133px;
+    height: 39px;
+    padding: 0 6px;
+    border: 1px solid #39f;
+    border-radius: 0;
+    background: #e5f1f9;
+    box-shadow: none;
+    color: black;
+    font: normal 18px Arial, sans-serif;
+}
+
+.ticket main > p {
+    width: 803px;
+    max-width: 100%;
+    font-size: 13px;
+}
+        </style>
+        <!-- CSS chỉ dùng khi mở trang kết quả, không áp dụng cho trang hiện tại. -->
+        <style id="result-style" media="not all">
+/* Định dạng chung cho trang hóa đơn, vé, đăng ký tour và kết quả CV. */
+
+.result-page main {
+    max-width: 460px;
+    padding: 8px;
+    border: 1px solid #888;
+}
+
+.result-page h1 {
+    margin: 0 0 18px;
+    font-size: 18px;
+}
+
+.result-page p {
+    margin: 12px 0;
+}
+
+.result-page table {
+    margin-top: 15px;
+}
+
+.result-page th,
+.result-page td {
+    border: 0;
+    padding: 8px;
+    text-align: center;
+}
+
+.result-page tr:last-child {
+    font-weight: bold;
+}
+
+.result-page .print-button {
+    display: block;
+    margin: 20px auto 0;
+}
+
+/* Vé xem phim: khung viền đen, bảng thông tin 2 cột và bảng ghế theo mẫu. */
+.result-page.ticket-invoice {
+    font-family: "Times New Roman", serif;
+}
+
+.result-page.ticket-invoice main {
+    max-width: 590px;
+    padding: 6px 14px 14px;
+    border: 1px solid black;
+}
+
+.result-page.ticket-invoice h1 {
+    margin: 0 0 6px;
+    font-size: 24px;
+}
+
+.result-page.ticket-invoice table {
+    width: 100%;
+    margin: 0;
+    table-layout: fixed;
+    background: transparent;
+}
+
+.result-page.ticket-invoice th,
+.result-page.ticket-invoice td {
+    padding: 4px 0;
+    border: 0;
+    text-align: left;
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.result-page.ticket-invoice .ticket-info tr {
+    font-weight: normal;
+}
+
+.result-page.ticket-invoice .ticket-info td:first-child {
+    width: 47%;
+}
+
+.result-page.ticket-invoice .ticket-seats {
+    width: calc(100% - 64px);
+    margin: 20px 0 0 64px;
+}
+
+.result-page.ticket-invoice .ticket-seats th:first-child,
+.result-page.ticket-invoice .ticket-seats td:first-child {
+    width: 248px;
+}
+
+.result-page.ticket-invoice .ticket-seats thead th {
+    padding-bottom: 12px;
+    font-weight: bold;
+}
+
+.result-page.ticket-invoice .ticket-seats tbody tr {
+    font-weight: normal;
+}
+
+.result-page.ticket-invoice .ticket-seats tbody td {
+    padding: 6px 0;
+    font-size: 20px;
+}
+
+.result-page.ticket-invoice .ticket-seats tfoot th {
+    padding-top: 14px;
+    font-size: 28px;
+    font-weight: bold;
+}
+        </style>
+    </head>
+    <body class="ticket">
+        <main>
+            <nav>
+                <a href="index.html">← Danh sách bài</a>
+            </nav>
+            <form id="ticket-form">
+                <input id="customer" type="hidden" value="Nguyễn Văn A">
+                <table class="form-table">
+                    <caption>Mua vé</caption>
+                    <tr>
+                        <td>
+                            <label for="show-date">Ngày chiếu</label>
+                        </td>
+                        <td>
+                            <span class="ticket-date">
+                                <input id="show-date" type="date" lang="en-GB" required>
+                                <span class="date-hint" aria-hidden="true">dd / mm / yyyy</span>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="movie">Phim</label>
+                        </td>
+                        <td>
+                            <select id="movie" required>
+                                <option value="" disabled selected>Phim</option>
+                                <!-- Không đặt value: giá trị mặc định chính là tên phim. -->
+                                <option>Yêu em bất chấp</option>
+                                <option>Tháng năm rực rỡ</option>
+                                <option>Và em sẽ đến</option>
+                                <option>Chuyện ma lúc 3 giờ sáng</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="showtime">Suất chiếu</label>
+                        </td>
+                        <td>
+                            <select id="showtime" required>
+                                <option value="" disabled selected>Suất chiếu</option>
+                                <option value="45000">9h – 12h</option>
+                                <option value="45000">13h – 16h</option>
+                                <option value="55000">17h – 20h</option>
+                                <option value="35000">22h – 2h</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="room">Phòng chiếu</label>
+                        </td>
+                        <td>
+                            <select id="room" required>
+                                <option value="" disabled selected>Phòng chiếu</option>
+                                <option value="1">Đồng</option>
+                                <option value="1.2">Bạc</option>
+                                <option value="1.5">Vàng</option>
+                                <option value="2">Kim Cương</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="seats">Chọn chỗ ngồi</label>
+                        </td>
+                        <td>
+                            <select id="seats" multiple size="4" required>
+                                <option>Ghế 01</option>
+                                <option>Ghế 02</option>
+                                <option>Ghế 03</option>
+                                <option>Ghế 04</option>
+                                <option>Ghế 05</option>
+                                <option>Ghế 06</option>
+                                <option>Ghế 07</option>
+                                <option>Ghế 08</option>
+                                <option>Ghế 09</option>
+                                <option>Ghế 10</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="center">
+                            <button>Mua vé</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <p class="center">Giữ Ctrl/Command để chọn nhiều ghế.</p>
+        </main>
+        <!-- JavaScript đặt sau HTML để các ô và nút đã tồn tại khi xử lý. -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="cau4.js"></script>
+    </body>
+</html>

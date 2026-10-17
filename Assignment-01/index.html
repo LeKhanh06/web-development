@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bài thực hành 1</title>
+  <style>
+    :root {
+      --giay: #F2F5FB; --muc: #14213D; --phu: #5B6784;
+      --xanh: #2F5BEA; --xanh-nhat: #E3EAFD; --vien: #D5DCEC;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; color: var(--muc);
+      font-family: "Segoe UI", system-ui, Roboto, Arial, sans-serif;
+      background-color: var(--giay);
+      background-image:
+        linear-gradient(var(--vien) 1px, transparent 1px),
+        linear-gradient(90deg, var(--vien) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .trang { max-width: 880px; margin: 0 auto; padding: 48px 20px 40px; }
+
+    header { background: var(--muc); color: #fff; padding: 32px 36px; border-radius: 6px; }
+    header p { margin: 0 0 6px; color: #A9B6DA; font-size: 14px; }
+    header h1 { margin: 0 0 18px; font-size: 38px; line-height: 1.15; }
+    .sv { display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 15px; }
+    .sv b { color: #A9B6DA; font-weight: 400; margin-right: 6px; }
+
+    h2 { margin: 36px 0 12px; font-size: 20px; }
+    h2 small { color: var(--phu); font-weight: 400; font-size: 14px; margin-left: 8px; }
+
+    ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px;
+         grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+    a.cau {
+      display: flex; gap: 14px; align-items: center; height: 100%;
+      padding: 14px 16px; background: #fff; color: inherit; text-decoration: none;
+      border: 1px solid var(--vien); border-left: 4px solid var(--xanh); border-radius: 4px;
+    }
+    a.cau:hover, a.cau:focus-visible { background: var(--xanh-nhat); outline: none; }
+    a.cau:focus-visible { box-shadow: 0 0 0 3px var(--xanh); }
+    .so { flex: none; width: 38px; height: 38px; display: grid; place-items: center;
+          background: var(--xanh-nhat); color: var(--xanh); font-weight: 700; border-radius: 50%; }
+    a.cau:hover .so { background: #fff; }
+    .ten { font-weight: 600; display: block; }
+    .mota { color: var(--phu); font-size: 13px; }
+
+    .vn a.cau { border-left-color: #1E9E4A; }
+    .vn .so { background: #DFF3E6; color: #1E9E4A; }
+
+    footer { margin-top: 40px; color: var(--phu); font-size: 13px; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="trang">
+    <header>
+      <p>Phát triển ứng dụng Web · Khoa Hệ thống thông tin, UIT</p>
+      <h1>Bài thực hành số 1<br>HTML5 và CSS3</h1>
+      <div class="sv">
+        <span><b>Họ tên</b>Nguyễn Thị Lệ Khanh</span>
+        <span><b>MSSV</b>24520796</span>
+      </div>
+    </header>
+
+    <h2>Thẻ cơ bản, bảng và danh sách <small>câu 1, 2, 4, 8</small></h2>
+    <ul>
+      <li><a class="cau" href="cau1.html"><span class="so">1</span><span><span class="ten">Trang mèo</span><span class="mota">img, h1, bgcolor</span></span></a></li>
+      <li><a class="cau" href="cau2.html"><span class="so">2</span><span><span class="ten">Bảng giỏ hoa</span><span class="mota">table, colspan, background</span></span></a></li>
+      <li><a class="cau" href="cau4.html"><span class="so">4</span><span><span class="ten">Các món ngon</span><span class="mota">bảng xen kẽ màu dòng</span></span></a></li>
+      <li><a class="cau" href="cau8.html"><span class="so">8</span><span><span class="ten">Thời khóa biểu</span><span class="mota">cùng môn cùng màu</span></span></a></li>
+    </ul>
+
+    <h2>Biểu mẫu <small>câu 3, 5, 6, 7</small></h2>
+    <ul>
+      <li><a class="cau" href="cau3.html"><span class="so">3</span><span><span class="ten">Máy tính</span><span class="mota">form, input, JavaScript</span></span></a></li>
+      <li><a class="cau" href="cau5.html"><span class="so">5</span><span><span class="ten">Form đăng nhập</span><span class="mota">table, hr, placeholder</span></span></a></li>
+      <li><a class="cau" href="cau6.html"><span class="so">6</span><span><span class="ten">Phiếu dự thưởng</span><span class="mota">radio, select, number</span></span></a></li>
+      <li><a class="cau" href="cau7.html"><span class="so">7</span><span><span class="ten">Phiếu đăng ký tour</span><span class="mota">fieldset, textarea, dropdown</span></span></a></li>
+    </ul>
+
+    <h2>Menu và bố cục <small>câu 9, 10, 11</small></h2>
+    <ul>
+      <li><a class="cau" href="cau9.html"><span class="so">9</span><span><span class="ten">Menu ngang</span><span class="mota">ul, li, menu con khi rê chuột</span></span></a></li>
+      <li><a class="cau" href="cau10.html"><span class="so">10</span><span><span class="ten">Menu dọc</span><span class="mota">form tìm kiếm, menu nhiều cấp</span></span></a></li>
+      <li><a class="cau" href="cau11.html"><span class="so">11</span><span><span class="ten">Bố cục trang</span><span class="mota">header, nav, section, aside, footer</span></span></a></li>
+    </ul>
+
+    <h2>Bài tập về nhà</h2>
+    <ul class="vn">
+      <li><a class="cau" href="baitapvenha.html"><span class="so">VN</span><span><span class="ten">Nature Tour</span><span class="mota">thiết kế trang web hoàn chỉnh</span></span></a></li>
+    </ul>
+
+    <footer>Bài thực hành số 1 · Lập trình web tĩnh HTML5 và CSS3</footer>
+  </div>
+</body>
+</html>

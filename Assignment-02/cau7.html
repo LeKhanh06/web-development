@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<!-- Câu 7: Đăng ký CV. HTML/CSS trong file này; JavaScript nằm ở cau7.js. -->
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Câu 7 — CV</title>
+        <!-- CSS dùng chung -->
+        <style id="common-style">
+/* CSS chung: bố cục cơ bản, bảng, ô nhập và nút. Mỗi bài tải thêm file CSS cùng tên. */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 24px 16px;
+    color: black;
+    background: white;
+    font: 16px "Times New Roman", serif;
+    line-height: 1.2;
+}
+
+main {
+    max-width: 1000px;
+    margin: auto;
+}
+
+h1,
+h2,
+h3 {
+    text-align: center;
+}
+
+a {
+    color: #0033cc;
+}
+
+nav {
+    margin-bottom: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0;
+    background: white;
+}
+
+th,
+td {
+    border: 1px solid #888;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    text-align: center;
+}
+
+input,
+select,
+textarea,
+button {
+    font: inherit;
+    max-width: 100%;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="range"]),
+textarea {
+    width: 100%;
+}
+
+input,
+select,
+textarea {
+    padding: 5px;
+}
+
+button {
+    padding: 6px 16px;
+    cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid #006d77;
+    outline-offset: 2px;
+}
+
+select[multiple] {
+    width: 100%;
+    min-height: 150px;
+}
+
+.form-table {
+    max-width: 650px;
+    margin: 16px auto;
+}
+
+.center {
+    text-align: center;
+}
+
+.note {
+    color: #555;
+}
+
+.error {
+    color: #a40000;
+}
+
+@media (max-width: 750px) {
+    body {
+        padding: 12px;
+    }
+}
+
+@media print {
+    nav,
+    .print-button {
+        display: none;
+    }
+}
+
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+}
+
+main {
+    max-width: 920px;
+}
+
+nav {
+    margin-bottom: 24px;
+    font: 13px Arial, sans-serif;
+}
+
+h1 {
+    font-size: 22px;
+}
+
+table {
+    margin: 0;
+}
+
+th,
+td {
+    padding: 3px 5px;
+    text-align: left;
+    border-color: #999;
+}
+
+caption {
+    padding: 4px;
+    border: 1px solid #999;
+    border-bottom: 0;
+    font-weight: bold;
+}
+
+input,
+select,
+textarea,
+button {
+    font: 13px Arial, sans-serif;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="range"]):not([type="file"]) {
+    width: 200px;
+    height: 22px;
+    padding: 1px 3px;
+}
+
+select {
+    padding: 0;
+}
+
+textarea {
+    padding: 2px;
+}
+
+button {
+    padding: 2px 12px;
+}
+
+select[multiple] {
+    min-height: 0;
+}
+
+.form-table {
+    margin: 0 auto;
+}
+
+.note,
+small {
+    font: 12px Arial, sans-serif;
+}
+
+@media (max-width: 650px) {
+    body {
+        padding: 16px 8px;
+    }
+}
+        </style>
+        <!-- CSS riêng của câu 7 -->
+        <style id="exercise-style">
+/* Câu 7 — Form đăng ký CV và trang CV kết quả. */
+
+.cv-form {
+    background: #ffacca;
+}
+
+.cv-form table {
+    background: #ffacca;
+}
+
+.cv-form .form-table {
+    width: 650px;
+    max-width: 100%;
+    background: white;
+}
+
+.cv-form caption {
+    padding: 5px 4px;
+    border-color: #000;
+    background: white;
+}
+
+.cv-form td {
+    padding: 6px 7px;
+    border-color: #000;
+}
+
+.cv-form .form-table > tbody > tr > td:first-child {
+    width: 21%;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.cv-form #cv-phone {
+    width: 110px;
+}
+
+.cv-form #avatar {
+    width: 100%;
+}
+
+/* Khối kỹ năng: khung đen, vạch ngăn giữa hai dòng chạy suốt chiều ngang. */
+.skill {
+    position: relative;
+    display: grid;
+    grid-template-columns: 115px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-items: center;
+    width: 450px;
+    max-width: 100%;
+    margin: 15px 0 8px;
+    padding: 0;
+    border: 1px solid #000;
+}
+
+.skill::before {
+    content: "";
+    grid-column: 1 / -1;
+    grid-row: 2;
+    align-self: stretch;
+    border-top: 1px solid #000;
+    pointer-events: none;
+}
+
+.skill label {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    padding: 5px 4px;
+    font-size: 17px;
+    font-weight: bold;
+    border-right: 1px solid #000;
+}
+
+.skill label:nth-of-type(1) {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+.skill label:nth-of-type(2) {
+    grid-row: 2;
+    grid-column: 1;
+}
+
+.skill input {
+    margin-left: 6px;
+}
+
+.skill .skill-name {
+    grid-row: 1;
+    grid-column: 2;
+}
+
+.skill .skill-level {
+    grid-row: 2;
+    grid-column: 2;
+    width: 120px;
+}
+
+/* Thanh trượt giống mẫu: rãnh xám nhạt, nút chữ nhật có ba vạch. */
+.skill .skill-level {
+    height: 24px;
+    padding: 0;
+    background: transparent;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.skill .skill-level::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 2px;
+    background: #e4e0da;
+}
+
+.skill .skill-level::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    width: 12px;
+    height: 22px;
+    margin-top: -9px;
+    border: 1px solid #8a8a8a;
+    border-radius: 2px;
+    background:
+        linear-gradient(#888 0 0) 50% 7px / 6px 1px no-repeat,
+        linear-gradient(#888 0 0) 50% 10px / 6px 1px no-repeat,
+        linear-gradient(#888 0 0) 50% 13px / 6px 1px no-repeat,
+        linear-gradient(#f8f8f8, #dcdcdc);
+}
+
+.skill .skill-level::-moz-range-track {
+    height: 4px;
+    border-radius: 2px;
+    background: #e4e0da;
+}
+
+.skill .skill-level::-moz-range-thumb {
+    box-sizing: border-box;
+    width: 12px;
+    height: 22px;
+    border: 1px solid #8a8a8a;
+    border-radius: 2px;
+    background:
+        linear-gradient(#888 0 0) 50% 7px / 6px 1px no-repeat,
+        linear-gradient(#888 0 0) 50% 10px / 6px 1px no-repeat,
+        linear-gradient(#888 0 0) 50% 13px / 6px 1px no-repeat,
+        linear-gradient(#f8f8f8, #dcdcdc);
+}
+
+/* Mẫu không hiện số % cạnh thanh trượt (giá trị vẫn được cập nhật trong output). */
+.skill output {
+    display: none;
+}
+
+.cv-form #add-skill {
+    border: 0;
+    background: none;
+    color: #800080;
+    text-decoration: underline;
+    font: inherit;
+    padding: 0;
+}
+
+.cv-form .center button {
+    padding: 5px 24px;
+}
+
+.cv-form td.center {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+/* Trang CV kết quả giống mẫu. */
+.cv-result main {
+    max-width: 400px;
+    padding: 0;
+    border: 0;
+}
+
+.cv-result main > h1 {
+    display: none;
+}
+
+.cv-card {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0 15px 21px;
+    background: white;
+    box-shadow: 0 0 6px #bbb;
+    color: #666;
+    font: 400 14px Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.cv-card img {
+    display: block;
+    width: 100%;
+    height: 270px;
+    margin: 0;
+    object-fit: contain;
+}
+
+.cv-card img[hidden] {
+    display: none;
+}
+
+.cv-card h2 {
+    position: relative;
+    margin: -43px 0 19px;
+    color: #000;
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 30px;
+    text-align: left;
+}
+
+.cv-card img[hidden] + h2 {
+    margin-top: 15px;
+}
+
+.cv-info {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cv-info li {
+    display: flex;
+    align-items: center;
+    height: 33.3px;
+}
+
+.cv-card svg {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin-right: 17px;
+    fill: #009688;
+}
+
+.cv-card h3.cv-skills-title {
+    display: flex;
+    align-items: center;
+    margin: 12px 0 5px;
+    padding-top: 19px;
+    border-top: 1px solid #eee;
+    color: #666;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: left;
+}
+
+.cv-skill {
+    margin-top: 17px;
+}
+
+.cv-skill-name {
+    margin-bottom: 16px;
+    color: #777;
+    font-size: 13px;
+    line-height: 16px;
+}
+
+.cv-bar {
+    height: 16px;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #f1f1f1;
+}
+
+.cv-bar-fill {
+    height: 16px;
+    border-radius: 8px;
+    background: #009688;
+    color: white;
+    font-size: 10px;
+    line-height: 16px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+@media (max-width: 650px) {
+    .skill {
+        grid-template-columns: 95px minmax(0, 1fr);
+    }
+}
+        </style>
+        <!-- CSS chỉ dùng khi mở trang kết quả, không áp dụng cho trang hiện tại. -->
+        <style id="result-style" media="not all">
+/* Định dạng chung cho trang hóa đơn, vé, đăng ký tour và kết quả CV. */
+
+.result-page main {
+    max-width: 460px;
+    padding: 8px;
+    border: 1px solid #888;
+}
+
+.result-page h1 {
+    margin: 0 0 18px;
+    font-size: 18px;
+}
+
+.result-page p {
+    margin: 12px 0;
+}
+
+.result-page table {
+    margin-top: 15px;
+}
+
+.result-page th,
+.result-page td {
+    border: 0;
+    padding: 8px;
+    text-align: center;
+}
+
+.result-page tr:last-child {
+    font-weight: bold;
+}
+
+.result-page .print-button {
+    display: block;
+    margin: 20px auto 0;
+}
+        </style>
+    </head>
+    <body class="cv-form">
+        <main>
+            <nav>
+                <a href="index.html">← Danh sách bài</a>
+            </nav>
+            <form id="cv-form">
+                <table class="form-table">
+                    <caption>Đăng ký CV</caption>
+                    <tr>
+                        <td>
+                            <label for="full-name">Họ và tên</label>
+                        </td>
+                        <td>
+                            <input id="full-name" placeholder="Nguyễn Văn C" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="cv-address">Địa chỉ</label>
+                        </td>
+                        <td>
+                            <input id="cv-address" placeholder="TP.HCM" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="cv-phone">Điện thoại</label>
+                        </td>
+                        <td>
+                            <input id="cv-phone" type="tel" placeholder="0900000000" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="email">Email</label>
+                        </td>
+                        <td>
+                            <input id="email" type="email" placeholder="ex@mail.com" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="job">Nghề nghiệp</label>
+                        </td>
+                        <td>
+                            <input id="job" placeholder="Designer" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="avatar">Ảnh đại diện</label>
+                        </td>
+                        <td>
+                            <input id="avatar" type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Kỹ năng</td>
+                        <td>
+                            <div id="skills">
+                            </div>
+                            <button id="add-skill" type="button">Thêm</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="center">
+                            <button>Đăng ký</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </main>
+        <!-- JavaScript đặt sau HTML để các ô và nút đã tồn tại khi xử lý. -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="cau7.js"></script>
+    </body>
+</html>

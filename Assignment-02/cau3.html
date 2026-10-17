@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<!-- Câu 3: Quản lý món ăn theo bàn. HTML/CSS trong file này; JavaScript nằm ở cau3.js. -->
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Câu 3 — Nhà hàng</title>
+        <!-- CSS dùng chung -->
+        <style id="common-style">
+/* CSS chung: bố cục cơ bản, bảng, ô nhập và nút. Mỗi bài tải thêm file CSS cùng tên. */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 24px 16px;
+    color: black;
+    background: white;
+    font: 16px "Times New Roman", serif;
+    line-height: 1.2;
+}
+
+main {
+    max-width: 1000px;
+    margin: auto;
+}
+
+h1,
+h2,
+h3 {
+    text-align: center;
+}
+
+a {
+    color: #0033cc;
+}
+
+nav {
+    margin-bottom: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0;
+    background: white;
+}
+
+th,
+td {
+    border: 1px solid #888;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    text-align: center;
+}
+
+input,
+select,
+textarea,
+button {
+    font: inherit;
+    max-width: 100%;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="range"]),
+textarea {
+    width: 100%;
+}
+
+input,
+select,
+textarea {
+    padding: 5px;
+}
+
+button {
+    padding: 6px 16px;
+    cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid #006d77;
+    outline-offset: 2px;
+}
+
+select[multiple] {
+    width: 100%;
+    min-height: 150px;
+}
+
+.form-table {
+    max-width: 650px;
+    margin: 16px auto;
+}
+
+.center {
+    text-align: center;
+}
+
+.note {
+    color: #555;
+}
+
+.error {
+    color: #a40000;
+}
+
+@media (max-width: 750px) {
+    body {
+        padding: 12px;
+    }
+}
+
+@media print {
+    nav,
+    .print-button {
+        display: none;
+    }
+}
+
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+}
+
+main {
+    max-width: 920px;
+}
+
+nav {
+    margin-bottom: 24px;
+    font: 13px Arial, sans-serif;
+}
+
+h1 {
+    font-size: 22px;
+}
+
+table {
+    margin: 0;
+}
+
+th,
+td {
+    padding: 3px 5px;
+    text-align: left;
+    border-color: #999;
+}
+
+caption {
+    padding: 4px;
+    border: 1px solid #999;
+    border-bottom: 0;
+    font-weight: bold;
+}
+
+input,
+select,
+textarea,
+button {
+    font: 13px Arial, sans-serif;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="range"]):not([type="file"]) {
+    width: 200px;
+    height: 22px;
+    padding: 1px 3px;
+}
+
+select {
+    padding: 0;
+}
+
+textarea {
+    padding: 2px;
+}
+
+button {
+    padding: 2px 12px;
+}
+
+select[multiple] {
+    min-height: 0;
+}
+
+.form-table {
+    margin: 0 auto;
+}
+
+.note,
+small {
+    font: 12px Arial, sans-serif;
+}
+
+@media (max-width: 650px) {
+    body {
+        padding: 16px 8px;
+    }
+}
+        </style>
+        <!-- CSS riêng của câu 3 -->
+        <style id="exercise-style">
+/* Câu 3 — Nhà hàng và các bảng món ăn theo bàn. */
+
+.restaurant .menu-head th {
+    background: #e7e7e7;
+    color: #535b66;
+    font-size: 28px;
+    text-align: center;
+}
+
+.restaurant .staff {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    gap: 0;
+    color: black;
+    font-size: 28px;
+}
+
+.restaurant main {
+    max-width: 1008px;
+}
+
+.restaurant .restaurant-menu {
+    border: 2px solid black;
+    background: white;
+    font-family: "Times New Roman", serif;
+}
+
+.restaurant .staff > * {
+    min-width: 0;
+    min-height: 49px;
+    padding: 0 10px;
+    font-weight: normal;
+    overflow-wrap: anywhere;
+}
+
+.restaurant .staff > :last-child {
+    border-left: 2px solid black;
+}
+
+.restaurant h3 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 74px;
+    padding: 8px;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    font-size: 42px;
+}
+
+.restaurant .menu-picker {
+    padding: 25px 12px 11px;
+}
+
+.restaurant .form-table {
+    width: 355px;
+    height: 260px;
+    max-width: 100%;
+    margin: 0 auto;
+    table-layout: fixed;
+    border: 2px solid black;
+}
+
+.restaurant .form-table th {
+    height: 62px;
+    padding: 4px;
+    border: 2px solid black;
+}
+
+.restaurant .form-table th:first-child {
+    width: 41%;
+}
+
+.restaurant .form-table td {
+    text-align: center;
+    vertical-align: top;
+    height: 197px;
+    padding: 22px 12px;
+    border: 2px solid black;
+}
+
+.restaurant .form-table select[hidden] {
+    display: none;
+}
+
+/* position:absolute cho danh sách nổi, không làm thay đổi chiều cao bảng. */
+.restaurant .order-dropdown {
+    position: relative;
+    width: 90px;
+    margin: 0 auto;
+    text-align: left;
+    font: 23px/1.1 "Times New Roman", serif;
+}
+
+.restaurant .dish-dropdown {
+    width: 132px;
+    font-size: 17px;
+}
+
+.restaurant .order-combobox {
+    position: relative;
+    display: block;
+    width: 100%;
+    min-height: 26px;
+    padding: 1px 17px 1px 5px;
+    border: 1px solid #8cabdd;
+    border-radius: 0;
+    background: white;
+    color: black;
+    font: inherit;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.restaurant .order-combobox span {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.restaurant .order-combobox::after {
+    content: "";
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-25%);
+    border-top: 6px solid black;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+}
+
+.restaurant .order-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    border: 1px solid #8cabdd;
+    background: white;
+    color: black;
+}
+
+.restaurant .order-option {
+    padding: 0 5px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.restaurant .order-option[aria-selected="true"],
+.restaurant .order-option.is-active {
+    background: #218bff;
+    color: white;
+}
+
+.restaurant .order-options:has(.is-active) .order-option[aria-selected="true"]:not(.is-active) {
+    background: white;
+    color: black;
+}
+
+.tables {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    width: 940px;
+    max-width: 100%;
+    min-height: 385px;
+    margin: 24px auto 0;
+    border: 1px solid black;
+    background: white;
+    font-family: "Times New Roman", serif;
+}
+
+.tables article {
+    box-sizing: border-box;
+    min-width: 0;
+    border: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-left: 0;
+    padding-bottom: 20px;
+    text-align: center;
+    background: white;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.tables article + article {
+    border-left: 1px solid black;
+}
+
+.tables h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 37px;
+    margin: 0;
+    padding: 0;
+    font: bold 22px/1 "Times New Roman", serif;
+    border-bottom: 1px solid black;
+}
+
+.tables table {
+    box-sizing: border-box;
+    width: calc(100% - 18px);
+    height: auto;
+    min-width: 0;
+    max-width: calc(100% - 18px);
+    margin: 0 9px;
+    padding: 0;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid black;
+    border-top: 0;
+}
+
+/* Đè mép bảng lên đường dưới tên bàn: trong bảng 2px, hai đoạn ngoài vẫn 1px. */
+.tables table {
+    margin-top: -1px;
+}
+
+.tables thead tr:first-child th {
+    border-top: 2px solid black;
+    border-bottom: 1px solid black;
+}
+
+.tables .order-dish-column { width: 33%; }
+.tables .order-quantity-column { width: 16%; }
+.tables .order-amount-column { width: 30%; }
+.tables .order-delete-column { width: 21%; }
+
+.tables td,
+.tables th {
+    border: 1px solid black;
+    padding: 3px;
+    vertical-align: middle;
+    font: normal 18px/1.15 "Times New Roman", serif;
+    color: black;
+    background: white;
+}
+
+.tables thead th {
+    height: 52px;
+    padding: 2px;
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.tables tbody td {
+    height: 46px;
+}
+
+.tables tbody td:first-child {
+    text-align: left;
+    overflow-wrap: anywhere;
+}
+
+.tables tbody td:nth-child(2),
+.tables tbody td:nth-child(4) {
+    text-align: center;
+}
+
+.restaurant #tables input {
+    max-width: 100%;
+    min-width: 0;
+    height: 22px;
+    padding: 1px;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: black;
+    font: normal 18px/1.15 "Times New Roman", serif;
+}
+
+.restaurant #tables td:nth-child(2) input {
+    width: 100%;
+    height: 23px;
+    text-align: center;
+}
+
+.restaurant #tables td:nth-child(3) input {
+    width: 100%;
+    text-align: left;
+}
+
+/* Chỉ dòng món đầu của Bàn 1 có khung input nhỏ theo mẫu. */
+.restaurant #tables article:first-child tbody tr:first-child input {
+    border: 1px solid #999;
+    border-radius: 0;
+    background: white;
+    box-shadow: none;
+    font: normal 13px Arial, sans-serif;
+}
+
+.restaurant #tables article:first-child tbody tr:first-child td:nth-child(2) input {
+    width: 21px;
+    height: 23px;
+}
+
+.restaurant #tables article:first-child tbody tr:first-child td:nth-child(3) input {
+    width: 55px;
+    height: 22px;
+}
+
+.tables tbody button {
+    box-sizing: border-box;
+    width: 33px;
+    height: 23px;
+    min-width: 0;
+    min-height: 0;
+    padding: 1px 4px;
+    border: 1px solid #7fa7e8;
+    border-radius: 2px;
+    background: linear-gradient(to bottom, #fff, #e5e5e5);
+    box-shadow: inset 0 0 0 1px #fff;
+    color: black;
+    font: 400 12px/normal Tahoma, sans-serif;
+    text-align: center;
+}
+
+.tables tfoot th {
+    height: 52px;
+    padding: 8px 3px 3px 9px;
+    text-align: left;
+    vertical-align: top;
+    white-space: nowrap;
+    font: bold 18px/1.15 "Times New Roman", serif;
+}
+
+.tables tfoot td {
+    padding: 8px 3px 3px;
+    text-align: center;
+    vertical-align: top;
+    font: bold 23px/1.15 "Times New Roman", serif;
+}
+
+/* Hai bàn sau dùng nhãn lớn, xuống dòng tự nhiên trong cột Món. */
+.tables article:nth-child(2) tfoot th,
+.tables article:nth-child(3) tfoot th {
+    height: 90px;
+    padding-bottom: 1px;
+    white-space: normal;
+    font-size: 23px;
+    line-height: 40px;
+}
+
+.tables article > button {
+    display: block;
+    box-sizing: border-box;
+    width: 102px;
+    min-width: 102px;
+    max-width: 102px;
+    height: 28px;
+    min-height: 28px;
+    max-height: 28px;
+    margin: 20px auto 0;
+    padding: 0 3px;
+    border: 1px solid #aaa;
+    border-radius: 1px;
+    background: linear-gradient(to bottom, #fafafa, #e5e5e5);
+    box-shadow: inset 1px 1px 0 white, inset -1px -1px 0 #c4c4c4;
+    color: black;
+    font: 400 17px/24px Arial, sans-serif;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Chỉ áp dụng cho trang hóa đơn câu 3, không đổi các trang kết quả khác. */
+.restaurant-invoice {
+    padding: 12px 24px;
+    background: white;
+    font-family: "Times New Roman", serif;
+}
+
+.restaurant-invoice main {
+    box-sizing: border-box;
+    width: 490px;
+    max-width: none;
+    min-height: 0;
+    margin: 0;
+    padding: 3px 7px 13px;
+    border: 1px solid black;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.restaurant-invoice h1 {
+    margin: 0 0 10px;
+    font: bold 24px/28px "Times New Roman", serif;
+    text-align: center;
+}
+
+.restaurant-invoice table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    border: 0;
+    background: white;
+}
+
+.restaurant-invoice th,
+.restaurant-invoice td {
+    padding: 0;
+    border: 0;
+    color: black;
+    font-weight: normal;
+    vertical-align: middle;
+}
+
+.restaurant-invoice .invoice-details {
+    width: 100%;
+    margin: 0;
+}
+
+.restaurant-invoice .invoice-details td {
+    height: 40px;
+    text-align: left;
+    white-space: nowrap;
+    font: normal 23px/1.15 "Times New Roman", serif;
+}
+
+.restaurant-invoice .invoice-details td:first-child {
+    width: 217px;
+}
+
+.restaurant-invoice .invoice-items {
+    width: 365px;
+    margin: 18px auto 0;
+}
+
+.restaurant-invoice .invoice-dish-column { width: 40%; }
+.restaurant-invoice .invoice-quantity-column { width: 20%; }
+.restaurant-invoice .invoice-amount-column { width: 40%; }
+
+.restaurant-invoice .invoice-items thead th {
+    height: 40px;
+    text-align: center;
+    font: bold 23px/1.15 "Times New Roman", serif;
+}
+
+.restaurant-invoice .invoice-items tbody td {
+    height: 37px;
+    text-align: center;
+    font: normal 20px/1.15 "Times New Roman", serif;
+}
+
+.restaurant-invoice .invoice-items tr > :first-child {
+    text-align: left;
+}
+
+.restaurant-invoice .invoice-items tfoot th,
+.restaurant-invoice .invoice-items tfoot td {
+    height: 40px;
+    font: bold 28px/1.15 "Times New Roman", serif;
+    white-space: nowrap;
+}
+
+.restaurant-invoice .invoice-items tfoot td {
+    text-align: center;
+}
+
+.restaurant-invoice > .print-button {
+    margin: 12px 0 0;
+}
+
+@media print {
+    .restaurant-invoice { padding: 0; }
+    .restaurant-invoice > .print-button { display: none; }
+}
+
+@media (max-width: 650px) {
+    .restaurant .staff {
+        grid-template-columns: 1fr;
+        font-size: 20px;
+    }
+
+    .restaurant .staff > :last-child {
+        border-left: 0;
+        border-top: 2px solid black;
+    }
+
+    .tables {
+        grid-template-columns: 1fr;
+        width: 314px;
+        gap: 0;
+    }
+
+    .tables article {
+        min-height: 383px;
+    }
+
+    .tables article + article {
+        border-left: 0;
+        border-top: 1px solid black;
+    }
+}
+        </style>
+        <!-- CSS chỉ dùng khi mở trang kết quả, không áp dụng cho trang hiện tại. -->
+        <style id="result-style" media="not all">
+/* Định dạng chung cho trang hóa đơn, vé, đăng ký tour và kết quả CV. */
+
+.result-page main {
+    max-width: 460px;
+    padding: 8px;
+    border: 1px solid #888;
+}
+
+.result-page h1 {
+    margin: 0 0 18px;
+    font-size: 18px;
+}
+
+.result-page p {
+    margin: 12px 0;
+}
+
+.result-page table {
+    margin-top: 15px;
+}
+
+.result-page th,
+.result-page td {
+    border: 0;
+    padding: 8px;
+    text-align: center;
+}
+
+.result-page tr:last-child {
+    font-weight: bold;
+}
+
+.result-page .print-button {
+    display: block;
+    margin: 20px auto 0;
+}
+        </style>
+    </head>
+    <body class="restaurant">
+        <main>
+            <nav>
+                <a href="index.html">← Danh sách bài</a>
+            </nav>
+            <section class="restaurant-menu" aria-label="Thực đơn nhà hàng">
+            <div class="staff">
+                <strong id="clock">
+                </strong>
+                <span>Nhân viên: Nguyễn Văn A</span>
+            </div>
+            <h3>THỰC ĐƠN</h3>
+            <div class="menu-picker">
+            <table class="form-table">
+                <tr class="menu-head">
+                    <th>
+                        <label for="table-number">Bàn</label>
+                    </th>
+                    <th>
+                        <label for="dish">Món ăn</label>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <select id="table-number">
+                            <option value="0">Bàn 1</option>
+                            <option value="1">Bàn 2</option>
+                            <option value="2">Bàn 3</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select id="dish">
+                            <option value="" hidden>-- Chọn món ăn --</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            </div>
+            </section>
+            <div id="tables" class="tables">
+            </div>
+        </main>
+        <!-- JavaScript đặt sau HTML để các ô và nút đã tồn tại khi xử lý. -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="cau3.js"></script>
+    </body>
+</html>
